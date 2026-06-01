@@ -46,7 +46,12 @@ public class DataSeeder implements CommandLineRunner {
             System.out.println("👑 Tài khoản Admin mặc định đã được khởi tạo thành công: admin / admin123");
         }
 
-        System.out.println("🌱 Bắt đầu kiểm tra và đồng bộ hóa dữ liệu từ products-seed.json...");
+        if (productRepository.count() > 0) {
+            System.out.println("📦 Cơ sở dữ liệu đã có dữ liệu sản phẩm. Bỏ qua việc nạp mockdata từ JSON để giữ nguyên dữ liệu hiện tại.");
+            return;
+        }
+
+        System.out.println("🌱 Cơ sở dữ liệu trống. Bắt đầu nạp dữ liệu hạt giống từ products-seed.json...");
 
         try {
             // Đọc file products-seed.json từ classpath resources
