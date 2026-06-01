@@ -1,0 +1,99 @@
+/* ===== ScrollToTop Button ===== */
+.scroll-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--grad-primary);
+  color: #ffffff;
+  box-shadow: 0 8px 24px -4px rgba(var(--color-primary-rgb), 0.45);
+
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.85);
+  transition:
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease;
+}
+
+/* Visible state — fade-in + slide-up */
+.scroll-to-top--visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  animation: stt-pulse 2.5s ease-in-out infinite;
+}
+
+/* Hover lift */
+.scroll-to-top:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 14px 32px -6px rgba(var(--color-primary-rgb), 0.55);
+}
+
+.scroll-to-top:active {
+  transform: translateY(0) scale(1);
+}
+
+/* Glassmorphism glow ring */
+.scroll-to-top__glow {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(var(--color-primary-rgb), 0.25),
+    rgba(99, 102, 241, 0.15),
+    rgba(var(--color-primary-rgb), 0.25)
+  );
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.scroll-to-top:hover .scroll-to-top__glow {
+  opacity: 1;
+}
+
+/* Pulsing shadow keyframe */
+@keyframes stt-pulse {
+  0%, 100% {
+    box-shadow: 0 8px 24px -4px rgba(var(--color-primary-rgb), 0.45);
+  }
+  50% {
+    box-shadow:
+      0 8px 24px -4px rgba(var(--color-primary-rgb), 0.45),
+      0 0 0 8px rgba(var(--color-primary-rgb), 0.08);
+  }
+}
+
+/* Icon nudge on hover */
+.scroll-to-top svg {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.scroll-to-top:hover svg {
+  transform: translateY(-2px);
+}
+
+/* Mobile: slightly smaller distance from edges */
+@media (max-width: 640px) {
+  .scroll-to-top {
+    bottom: 16px;
+    right: 16px;
+  }
+}

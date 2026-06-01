@@ -1,0 +1,54 @@
+# ==========================================================================
+# NovaTech Project .gitignore (Frontend & Backend Spring Boot)
+# ==========================================================================
+
+# --- Node.js & React Frontend ---
+node_modules/
+dist/
+dist-ssr/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Java & Maven Backend ---
+target/
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/
+.gradle/
+build/
+
+# --- Database H2 files ---
+backend/data/
+**/data/
+*.db
+*.mv.db
+*.trace.db
+
+# --- IDEs & System files ---
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# --- Temporary files & logs ---
+logs/
+*.log
+tmp/
+temp/
