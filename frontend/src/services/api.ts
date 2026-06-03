@@ -1,6 +1,6 @@
 import type { Product } from '../types';
 
-const BASE_URL = 'http://localhost:8080/api';
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
 /**
  * Helper lấy JWT token từ localStorage và cấu hình headers xác thực
