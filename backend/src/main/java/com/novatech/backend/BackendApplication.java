@@ -14,10 +14,17 @@ public class BackendApplication {
     public static void main(String[] args) {
         List<String> activeArgs = new ArrayList<>(Arrays.asList(args));
         
-        // Tự động kiểm tra và cấu hình biến môi trường kết nối PostgreSQL từ Neon/Render/Railway
-        String databaseUrl = System.getenv("DATABASE_URL");
-        if (databaseUrl == null) {
-            databaseUrl = System.getenv("SPRING_DATASOURCE_URL");
+        // Tìm kiếm biến môi trường chứa URL database một cách không phân biệt hoa thường và định dạng kí tự (fuzzily)
+        String databaseUrl = null;
+        for (String key : System.getenv().keySet()) {
+            String keyNormalized = key.toLowerCase().replace("_", "").replace("-", "").replace(".", "");
+            if (keyNormalized.equals("databaseurl") || keyNormalized.equals("springdatasourceurl")) {
+                databaseUrl = System.getenv(key);
+                if (databaseUrl != null) {
+                    databaseUrl = databaseUrl.trim(); // Loại bỏ khoảng trắng thừa nếu copy-paste lỗi
+                }
+                break;
+            }
         }
 
         if (databaseUrl != null && (databaseUrl.startsWith("postgres://") || databaseUrl.startsWith("postgresql://"))) {
