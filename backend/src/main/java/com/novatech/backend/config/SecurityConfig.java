@@ -65,13 +65,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Cho phép Frontend React gọi từ localhost hoặc từ các trang đã deploy trên Vercel (CORS wildcard pattern)
-        configuration.setAllowedOriginPatterns(Arrays.asList(
-            "http://localhost:5173",
-            "http://localhost:4173",
-            "https://*.vercel.app",
-            "https://*.vercel.dev"
-        ));
+        // Cho phép Frontend React gọi từ mọi nguồn để tránh tuyệt đối lỗi chặn CORS (CORS wildcard pattern)
+        configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Cache-Control"));
         configuration.setExposedHeaders(Collections.singletonList("Authorization"));

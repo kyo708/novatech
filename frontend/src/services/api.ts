@@ -1,6 +1,12 @@
 import type { Product } from '../types';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+const getBaseUrl = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl) return 'http://localhost:8080/api';
+  return envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`;
+};
+
+const BASE_URL = getBaseUrl();
 
 /**
  * Helper lấy JWT token từ localStorage và cấu hình headers xác thực

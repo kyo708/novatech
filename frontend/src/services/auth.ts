@@ -1,4 +1,11 @@
-const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8080/api') + '/auth';
+const getBaseUrl = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl) return 'http://localhost:8080/api/auth';
+  const apiRoot = envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`;
+  return `${apiRoot}/auth`;
+};
+
+const BASE_URL = getBaseUrl();
 
 export interface LoginResponseDto {
   token: string;
